@@ -1,0 +1,37 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.alfa.grpc.visit;
+import "google/protobuf/empty.proto";
+message Visit{
+    string id=1;
+    string buildingId=2;
+    string userId=3;
+    string checkinTime=4;
+    string checkoutTime=5;
+}
+
+message VisitRequest{
+    string buildingId=1;
+    string userId=2;
+}
+
+message VisitResponse{
+    string token=1;
+}
+message VisitListRequest{
+    string token=1;
+}
+message VisitList{
+    repeated Visit visit=1;
+}
+message CheckoutRequest{
+    string token=1;
+}
+
+
+service VisitService {
+    rpc add (VisitRequest) returns (VisitResponse) {}
+    rpc list (VisitListRequest) returns (VisitList) {
+    }
+    rpc checkout (CheckoutRequest) returns (google.protobuf.Empty) {}
+}

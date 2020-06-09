@@ -1,0 +1,64 @@
+project.home: /Users/nadapdap/home/workspace/dexter/guestbook
+grpc:
+  port: 5009
+
+spring:
+  application:
+    name: BANGKU-MEMBER
+  datasource:
+#    url: jdbc:mysql://127.0.0.1:3306/bangku-member?useSSL=false&serverTimezone=Asia/Jakarta
+#    username: root
+#    password: P@ssw0rd
+    url: jdbc:h2:mem:testdb
+    username: root
+    password: secret
+    dialect: org.hibernate.dialect.H2Dialect
+    driver-class-name: org.h2.Driver
+    show-sql: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  main:
+    web-application-type: none
+  hikari:
+    idleTimeout: 30000
+    connectionTimeout: 180000
+    maxLifetime: 1800000
+    pool-name: cpServerH2ConnectionPool
+    auto-commit: false
+
+logging:
+  level:
+    ROOT: INFO
+    cp.es: DEBUG
+    org.springframework:
+      data: INFO
+      web: INFO
+      security: DEBUG
+  path: ${project.home}/logs
+  file: ${logging.path}/${spring.application.name}.log
+app:
+  common:
+    config:
+      location: ${project.home}/src/main/resources/common-config.properties
+  kyc:
+    dir: ${project.home}/kyc
+svc:
+  privy:
+    host: https://api-sandbox.privy.id/v3
+    registration: ${svc.privy.host}/merchant/registration
+    status: ${svc.privy.host}/merchant/registration/status
+    document:
+      upload: ${svc.privy.host}/document/upload
+bangku:
+  id:
+    client:
+      tao:
+        host: 147.139.179.61
+        port: 7810
+cron.customer.check.registration: 28 22 */1 * * ?
+cron.customer.check.document: 28 9 */1 * * ?
+bangku.auth.checktoken.service: http://147.139.179.61:7805/oauth/check_token
+bangku.changepass.user.uri: http://147.139.179.61:7805/user/change-pass
+bangku.create.user.uri: http://147.139.179.61:7805/user/create
