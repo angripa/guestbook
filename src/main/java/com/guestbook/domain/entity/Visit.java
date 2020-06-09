@@ -24,8 +24,8 @@ public class Visit extends BaseEntity {
    @Column(name = "username", nullable = false,columnDefinition = "varchar(128) default ''")
    String username = "";
 
-   @Column(name = "token", nullable = false)
-   String token = "";
+   @Column(name = "token")
+   String token;
 
    @Temporal(TemporalType.TIMESTAMP)
    @Column(name = "checkin_time",nullable = false)
